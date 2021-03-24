@@ -1,0 +1,92 @@
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+  background-color: #ececec;
+  padding: 0 1rem;
+  &__menu{
+    display: flex;
+    list-style: none;
+    background-color: #ececec;
+    a{
+      padding: 1rem 2rem;
+      color: #000;
+      text-decoration: none;
+      display: inline-block;
+      width: 100%;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+    @include respond(tablet){
+      transform: scale(1, 0);
+      transform-origin: top;
+      transition: transform 200ms ease-in-out;
+      display: block;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      padding: 1rem;
+      text-align: center;
+      z-index: 100;
+    }
+    &.active{
+      @include respond(tablet){
+        transform: scaleY(1);
+      }
+    }
+    ul{
+      list-style: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: #ececec;
+      min-width: 15rem;
+      z-index: 10;
+      transform: translate(0, 10%);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: all 0.3s ease 0s;
+      @include respond(tablet){
+        transition: all 0s ease 0s;
+      }
+    }
+    li{
+      position: relative;
+    }
+  }
+  &__button{
+    display: none;
+    stroke: #000;
+    border: none;
+    outline: 0;
+    @include respond(tablet){
+      display: block;
+    }
+    &.active .header__icon-menu,
+    .header__icon-cross {
+        display: none;
+    }
+    &.active .header__icon-cross,
+    .header__icon-menu{
+        display: block;
+    }
+  }
+}
+body._pc .header__menu li:hover ul{
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, 0);
+  pointer-events: all;
+}
+body._touch .header__menu li.active ul{
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, 0);
+  pointer-events: all;
+  @include respond(tablet){
+    position: relative;
+  }
+}

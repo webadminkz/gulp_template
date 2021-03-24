@@ -1,0 +1,38 @@
+.overlay {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.3);
+  &.show {
+    display: flex;
+  }
+}
+.modal {
+  background-color: #fff;
+  min-width: 600px;
+  max-height: 400px;
+  padding: 3rem;
+  position: relative;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__title{
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  &__close{
+    position: absolute;
+    background-color: transparent;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 2.4rem;
+    border: none;
+  }
+}

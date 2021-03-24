@@ -1,0 +1,147 @@
+$color-primary: #000;
+/* 
+div {                         >1200       normal
+  @include respond(laptop){   900-1200,   laptop
+  }
+  @include respond(tablet){   600-900,    tablet
+  }
+  @include respond(phone){    <600        phone
+  }
+}
+*/
+@mixin respond($breakpoint) {
+  @if $breakpoint == laptop {
+    @media (max-width: 75em) { @content }; //1200px / 16
+  }
+  @if $breakpoint == tablet {
+    @media (max-width: 56.25em) { @content }; //900px / 16
+  }
+  @if $breakpoint == phone {
+    @media (max-width: 37.5em) { @content };  //600px / 16
+}
+}
+@font-face {
+  font-family: 'RobotoRegular';
+  src: url('../font/robotoregular.woff2') format('woff2'), url('../font/robotoregular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RobotoRegular';
+  src: url('../font/robotobold.woff2') format('woff2'), url('../font/robotobold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit
+}
+
+html{
+  font-size: 62.5%;  //1rem = 10px;    10px/16px = 62.5%
+
+  @include respond(laptop){
+    font-size: 56.25%;  //1rem = 9px;    9px/16px = 56.25%
+  }
+  @include respond(tablet){
+    font-size: 50%;  //1rem = 8px;    8px/16px = 50%
+  }
+}
+
+body {
+  font-family: 'RobotoRegular', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  line-height: 1.4;
+  box-sizing: border-box;
+  font-size: 1.6rem;
+}
+body._lock{
+  overflow: hidden;
+}
+.hidden {
+  display: none;
+}
+img, picture {
+  width: 100%;
+}
+
+.container,
+.container-fluid{
+  width: 100%;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+.container{
+  max-width: 120rem;
+}
+.container-fluid{
+  max-width: 100%;
+}
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -1.5rem;
+  margin-left: -1.5rem;
+}
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col, .col-auto, 
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs, .col-xs-auto,
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm, .col-sm-auto,
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md, .col-md-auto{
+  position: relative;
+  width: 100%;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+@mixin make-grid($breakpoint){
+  .#{$breakpoint} {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+  }
+
+  .#{$breakpoint}-auto {
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 100%;
+  }
+
+  @for $i from 1 through 12 {
+    .#{$breakpoint}-#{$i} {
+      flex: 0 0 percentage($i / 12);
+      max-width: percentage($i / 12);
+    }
+  }
+
+}
+
+@include make-grid(col);
+
+@include respond(laptop){
+  @include make-grid(col-md);
+}
+@include respond(tablet){
+  @include make-grid(col-sm);
+}
+@include respond(phone){
+  @include make-grid(col-xs);
+}
+@import "blocks/header";
+@import "blocks/swiper";
+@import "blocks/main";
+@import "blocks/modal";
+
+//@import "blocks/*";
